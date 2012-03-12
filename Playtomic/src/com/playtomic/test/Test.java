@@ -26,7 +26,7 @@ public class Test {
 	public static void main(String[] arg) {
 		
 		try {
-			Playtomic.initInstance(6331, "fb927cb02c754945", "af67120c26014063bdb82719502fe8");
+			Playtomic.initInstance(/*swfid*/, /*guid*/, /*api key*/);
 			Playtomic.Log().view();
 			Playtomic.setOfflineQueueMaxSize(512);
 			System.out.println("Playtomic: Playtomic API has started");
