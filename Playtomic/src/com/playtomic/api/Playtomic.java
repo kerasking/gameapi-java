@@ -64,6 +64,21 @@ public class Playtomic {
     public static int GameId;
     public static String ApiKey;
 
+    /**
+    * Sets the API to use SSL-only for all communication
+    */
+    public static void setSSL()
+    {
+        // You are now using SSL for your api requests. This feature is for premium users only, if your account is not premium the data you send will be ignored.
+        sInstance.setSSL(true);
+    }
+    
+    public void setSSL(boolean value)
+    {
+        PlaytomicHttpRequest.setSSL(value) ;
+        mLog.setSSL(value);
+    }
+
     public static void initInstance(int gameId, String gameGuid, String apiKey) throws Exception {
         if (sInstance == null) {
             sInstance = new Playtomic(gameId, gameGuid, apiKey);

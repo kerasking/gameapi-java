@@ -105,7 +105,7 @@ public class PlaytomicLogRequest {
     }
 
     public void send() {
-        mFullUrl = mTrackUrl += mData;
+        mFullUrl = mTrackUrl + mData;
         PlaytomicHttpRequest request = new PlaytomicHttpRequest();
         request.setHttpRequestListener(new PlaytomicHttpRequestListener() {
             public void onRequestFinished(PlaytomicHttpResponse playtomicHttpResponse) {

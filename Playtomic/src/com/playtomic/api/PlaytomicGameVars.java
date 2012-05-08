@@ -52,10 +52,12 @@ public class PlaytomicGameVars {
     
     private static String SECTION;
     private static String LOAD;
+    private static String LOADSINGLE;
     
     static void Initialise(String apiKey) throws Exception {
         SECTION = PlaytomicEncrypt.md5("gamevars-" + apiKey);
         LOAD = PlaytomicEncrypt.md5("gamevars-load-" + apiKey);
+        LOADSINGLE = PlaytomicEncrypt.md5("gamevars-loadsingle-" + apiKey);
     }
     
     public void load() {
@@ -78,7 +80,33 @@ public class PlaytomicGameVars {
         catch (Exception ex) {
             requestFailed(ex.getMessage());
         }
-    }        
+    }
+    
+    public void loadSingle(String name)  {
+        PlaytomicHttpRequest request = new PlaytomicHttpRequest();
+        request.setHttpRequestListener(new PlaytomicHttpRequestListener() {
+            public void onRequestFinished(PlaytomicHttpResponse playtomicHttpResponse) {
+                if (playtomicHttpResponse.getSuccess()) {
+                    requestFinished(playtomicHttpResponse.getData());
+                }            
+                else {
+                    requestFailed();
+                }
+            }
+        });
+        try {
+            LinkedHashMap<String, String> postData = new LinkedHashMap<String, String>(); 
+            
+            postData.put("name", name);
+            
+            PlaytomicHttpRequestUrl url = PlaytomicHttpRequest.prepare(SECTION, LOADSINGLE, postData);
+            request.addPostData("data", url.getData());
+            request.execute(url.getUrl());
+        }
+        catch (Exception ex) {
+            requestFailed(ex.getMessage());
+        }
+    }
 
     @SuppressWarnings("deprecation")
 	private void requestFinished(String response) {

@@ -23,10 +23,16 @@ public class Test {
 	private String mLevelId = "";
 	private String mBitly = "";
 	
+	public void setLevelId(String value) {
+		mLevelId = value;
+	}
+	
 	public static void main(String[] arg) {
 		
 		try {
-			Playtomic.initInstance(/*swfid*/, /*guid*/, /*api key*/);
+			//Playtomic.initInstance(/*swfid*/, /*guid*/, /*api key*/);
+			Playtomic.initInstance(6331, "fb927cb02c754945", "af67120c26014063bdb82719502fe8");
+			Playtomic.setSSL();
 			Playtomic.Log().view();
 			Playtomic.setOfflineQueueMaxSize(512);
 			System.out.println("Playtomic: Playtomic API has started");
@@ -37,7 +43,7 @@ public class Test {
 		
 		Test test = new Test();
 		
-		test.logPlay();
+		/*test.logPlay();
 		test.logCustomMetric();
 		test.logCustomMetricNg();
 		test.logCustomMetricU();
@@ -46,8 +52,8 @@ public class Test {
 		test.logLevelCounterMetric();
 		test.logLevelCounterMetricU();
 		test.logLevelRangedMetric();
-		test.logLevelRangedMetricU();
-		test.loadGameVars();
+		test.logLevelRangedMetricU();*/
+		test.loadGameVars();/*
 		test.geoip();
 		test.leaderboardSave();
 		test.levelSave();
@@ -56,7 +62,7 @@ public class Test {
 		test.loadPlaytime();
 		test.loadCounters();
 		test.loadCustomData();
-		test.loadViews();
+		test.loadViews();*/
 
 		test.setLogListener();
 		
@@ -158,6 +164,7 @@ public class Test {
 				}
 			}
 		});
+        vars.loadSingle("Var1");
 	    vars.load();
 	}
 	

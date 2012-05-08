@@ -62,11 +62,13 @@ public class PlaytomicLog {
     private List<String> mLevelAverages;
     private List<String> mLevelRangeds;
     private Date mLastEventOccurence;
+    private String mProtocol;
 
     public PlaytomicLog(int gameId, String gameGuid) {
         mLastEventOccurence = new Date();
         mSourceUrl = Playtomic.SourceUrl();
-        mTrackUrl = "http://g" 
+        mProtocol = "http://";
+        mTrackUrl = "g" 
                     + gameGuid
                     + ".api.playtomic.com/tracker/q.aspx?swfid="
                     + gameId
@@ -88,6 +90,15 @@ public class PlaytomicLog {
         startTimer(ONE_MINUTE, THIRTY_SECONDS);
     }
 
+    public void setSSL(boolean value) {
+        if (value) {
+            mProtocol = "https://";
+        }
+        else {
+            mProtocol = "http://";
+        }
+    }
+    
     public void view() {
         sendEvent("v/" + (mViews + 1), true);
     }
@@ -291,7 +302,7 @@ public class PlaytomicLog {
     }
     
     private void massQueue() {
-        PlaytomicLogRequest request = new PlaytomicLogRequest(mTrackUrl);
+        PlaytomicLogRequest request = new PlaytomicLogRequest(mProtocol + mTrackUrl);
         request.setRequestListener(mRequestListener);
         request.massQueue(mQueue);
         mQueue.removeAll(mQueue);        

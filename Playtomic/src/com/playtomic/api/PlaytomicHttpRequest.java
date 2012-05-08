@@ -55,6 +55,7 @@ class PlaytomicHttpRequest implements Runnable {
     private static String URLStub;
     private static String URLTail;
     private static String URL;
+    private static String Protocol;
 
     private Thread mT;
     private String[] mUrls;
@@ -69,9 +70,19 @@ class PlaytomicHttpRequest implements Runnable {
     }
     
     public static void Initialise() {
-        URLStub = "http://g" + Playtomic.GameGuid() + ".api.playtomic.com/";
+    	Protocol = "http://";
+        URLStub = "g" + Playtomic.GameGuid() + ".api.playtomic.com/";
         URLTail = "swfid=" + Playtomic.GameId() + "&js=y";
         URL = URLStub + "v3/api.aspx?" + URLTail;
+    }
+    
+    public static void setSSL(boolean value)  {
+        if(value) {
+            Protocol = "https://";
+        }
+        else {
+            Protocol = "http://";
+        }            
     }
 
     public void setHttpRequestListener(PlaytomicHttpRequestListener httpRequestListener) {
@@ -177,7 +188,7 @@ class PlaytomicHttpRequest implements Runnable {
     public static PlaytomicHttpRequestUrl prepare(String section, String action, LinkedHashMap<String, String> postdata) throws Exception {
         PlaytomicHttpRequestUrl url = new PlaytomicHttpRequestUrl();
         Random r = new Random();
-        url.setUrl(URL + "&r=" + r.nextInt(10000000) + "Z");
+        url.setUrl(Protocol + URL + "&r=" + r.nextInt(10000000) + "Z");
         
         long seconds = System.currentTimeMillis() / 1000;
         String timestamp = String.valueOf(seconds);
