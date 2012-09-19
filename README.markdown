@@ -38,6 +38,8 @@ need to do anything to collect that data.
 Begin by logging a view which initializes the API, and then log any metrics you 
 want.  Play time, repeat visitors etc are handled automatically.
 
+The SmarterFox server component requires some sfs2x.jar and sfs2x-core.jar which you can get by installing SmarterFox Server.  If you are using this client-side then just delete the SFSExtension folder.
+
 #### Logging views and plays
 Call this at the very start of your game loading:
 
